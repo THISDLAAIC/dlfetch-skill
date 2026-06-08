@@ -3,32 +3,19 @@ name: dlfetch
 description: Interact with the THISDL (稻香湖学校) learning platform. Submit assignments, check tasks, view schedules, GPA, and manage schoolwork via CLI.
 ---
 
-Use this skill whenever the user needs to interact with the THISDL school platform (thisdlstu.schoolis.cn). The `dlfetch` CLI source is bundled in this skill directory.
+Use this skill whenever the user needs to interact with the THISDL school platform (thisdlstu.schoolis.cn).
 
 ## Setup (first time)
 
-If dlfetch is not yet installed, run:
+If the `dlfetch` command is not available, install from the skill directory:
 
 ```bash
-bash SKILL_DIR/install.sh
+bash /path/to/skill/install.sh
 ```
 
-This creates a venv, installs dependencies, and adds a `dlfetch` alias to `~/.zshrc`.
+This creates a venv, installs dependencies, and sets up a `dlfetch` alias. Credentials are read from `THISDL_USERNAME` and `THISDL_PASSWORD` environment variables.
 
-Credentials are read from environment variables. Set them before running dlfetch:
-
-```bash
-export THISDL_USERNAME="<username>"
-export THISDL_PASSWORD="<password>"
-```
-
-Alternatively, if the binary is already installed at `~/.local/bin/dlfetch`, use it directly.
-
-## Running dlfetch from source (if binary not built)
-
-```bash
-SKILL_DIR/venv/bin/python SKILL_DIR/main.py <command...>
-```
+If dlfetch is already installed (binary in PATH or alias), skip this step.
 
 ## Commands
 
@@ -108,4 +95,4 @@ dlfetch gpa -s SCE24       # by subject code
 
 - Always use `dlfetch tasks -p` or `dlfetch tasks -s <CODE> -p` to discover task IDs — never guess.
 - Session tokens expire periodically; dlfetch handles re-authentication automatically.
-- When running from source, replace `SKILL_DIR` with the actual skill installation path (e.g., `~/.agents/skills/dlfetch`).
+
