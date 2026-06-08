@@ -3,18 +3,32 @@ name: dlfetch
 description: Interact with the THISDL (稻香湖学校) learning platform. Submit assignments, check tasks, view schedules, GPA, and manage schoolwork via CLI.
 ---
 
-Use this skill whenever the user needs to interact with the THISDL school platform (thisdlstu.schoolis.cn). You have access to the `dlfetch` CLI tool for all operations.
+Use this skill whenever the user needs to interact with the THISDL school platform (thisdlstu.schoolis.cn). The `dlfetch` CLI source is bundled in this skill directory.
 
-## Setup
+## Setup (first time)
 
-dlfetch must be installed and configured with credentials:
+If dlfetch is not yet installed, run:
+
+```bash
+bash SKILL_DIR/install.sh
+```
+
+This creates a venv, installs dependencies, and adds a `dlfetch` alias to `~/.zshrc`.
+
+Credentials are read from environment variables. Set them before running dlfetch:
 
 ```bash
 export THISDL_USERNAME="<username>"
 export THISDL_PASSWORD="<password>"
 ```
 
-The dlfetch binary is at `~/.local/bin/dlfetch`.
+Alternatively, if the binary is already installed at `~/.local/bin/dlfetch`, use it directly.
+
+## Running dlfetch from source (if binary not built)
+
+```bash
+SKILL_DIR/venv/bin/python SKILL_DIR/main.py <command...>
+```
 
 ## Commands
 
@@ -32,13 +46,13 @@ dlfetch list
 
 **All tasks for a subject:**
 ```bash
-dlfetch tasks -s <SUBJECT_CODE>     # e.g., SCE24 for Honors Physics
+dlfetch tasks -s <SUBJECT_CODE>
 ```
 
 **Unfinished tasks only:**
 ```bash
-dlfetch tasks -p                    # all subjects
-dlfetch tasks -s SCE24 -p           # specific subject, unfinished only
+dlfetch tasks -p
+dlfetch tasks -s SCE24 -p
 ```
 
 **Task detail by ID:**
@@ -52,28 +66,28 @@ dlfetch tasks <TASK_ID>
 dlfetch submit <TASK_ID> -f <file_path> -m "<remark>"
 ```
 
-Multiple files can be uploaded at once with `-f file1.pdf -f file2.pdf`.
+Multiple files: `-f file1.pdf -f file2.pdf`
 
 ### View schedule
 
 ```bash
-dlfetch schedule           # today
+dlfetch schedule
 dlfetch schedule -t        # tomorrow
-dlfetch schedule -w        # this week as timetable
-dlfetch schedule -d 2026-06-01  # specific date
+dlfetch schedule -w        # this week
+dlfetch schedule -d 2026-06-01
 ```
 
 ### View GPA
 
 ```bash
-dlfetch gpa                # overview
+dlfetch gpa
 dlfetch gpa -d             # detailed breakdown
 dlfetch gpa -s SCE24       # by subject code
 ```
 
 ## Workflow for submitting assignments
 
-1. Find the task: `dlfetch tasks -s <CODE> -p` to see pending tasks
+1. Find the task: `dlfetch tasks -s <CODE> -p`
 2. Note the task ID (shown in brackets)
 3. Submit: `dlfetch submit <ID> -f <file> -m "remark"`
 
@@ -92,6 +106,6 @@ dlfetch gpa -s SCE24       # by subject code
 
 ## Important
 
-- Always use `dlfetch tasks -p` or `dlfetch tasks -s <CODE> -p` to discover task IDs before submitting — never guess task IDs.
-- When a submission fails with an upload error, it may be due to a known bug in dlfetch. Check the source at the dlfetch repo and fix if needed.
+- Always use `dlfetch tasks -p` or `dlfetch tasks -s <CODE> -p` to discover task IDs — never guess.
 - Session tokens expire periodically; dlfetch handles re-authentication automatically.
+- When running from source, replace `SKILL_DIR` with the actual skill installation path (e.g., `~/.agents/skills/dlfetch`).
