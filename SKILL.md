@@ -42,11 +42,23 @@ dlfetch schedule -t        # Tomorrow
 dlfetch schedule -w        # This week as a timetable grid
 dlfetch schedule -d 2026-06-01
 dlfetch gpa                # Current semester GPA
+dlfetch gpa -S list        # List all available semesters
+dlfetch gpa -S '<name>'    # GPA for a specific semester (e.g. "2025-2026学年 第1学期")
 dlfetch gpa -d             # Detailed breakdown per subject
 dlfetch gpa -s MAE01 SCE24 # Detail by subject code(s)
 dlfetch gpa -i 189741      # Detail by subject ID
 dlfetch logout             # Remove saved credentials and session
 ```
+
+## Semester GPA
+
+Use `-S` (capital S) to switch semesters:
+
+- `dlfetch gpa -S list` — show available semester names  
+- `dlfetch gpa -S '2025-2026学年 第1学期'` — GPA for a past semester  
+- Without `-S` — current semester (default behavior)
+
+Note: `-S` requires the exact semester name. The `-d`, `-s`, and `-i` flags work with any semester.
 
 ## Workflow for submitting assignments
 
